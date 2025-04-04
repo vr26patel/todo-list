@@ -74,8 +74,6 @@ ul li{
     cursor: pointer;
     position: relative;
     word-wrap: break-word;
-    animation-name: anime;
-    animation-duration: 1.20s;
 }
 ul li::before{
     content: '';
@@ -96,10 +94,6 @@ ul li.checked{
 ul li.checked::before{
     background-image: url(images/checked.png);
 }
-ul li.removed{
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
 ul li span{
     position: absolute;
     right: 10px;
@@ -113,25 +107,6 @@ ul li span{
 ul li span:hover{
     transform: scale(1.15);
 }
-
-/* Animations */
-
-@keyframes anime {
-    from,
-    0%,
-    100%,
-    to {
-      animation-timing-function: cubic-bezier(0.25, 0.60, 0.35, 1.00);
-    }
-    0% {
-      opacity: 0;
-      transform: translate3d(0, -200px, 0);
-    }
-    100% {
-      opacity: 1;
-      transform: translate3d(0, 0, 0);
-    }
-  }
 
 /* Responsive Design */
 @media (max-width: 768px) {
