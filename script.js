@@ -2,7 +2,7 @@ const inputBox = document.getElementById("inputBox")
 const taskList = document.getElementById("taskList")
 
 function addTask(){
-    if(inputBox.value === ""){
+    if(inputBox.value.trim() === ""){
         alert("Please enter a task");
     }
     else{
@@ -22,17 +22,32 @@ taskList.addEventListener("click", function(e){
         e.target.classList.toggle("checked");
     }
     else if(e.target.tagName === "SPAN"){
-        e.target.parentElement.remove()
+        const li = e.target.parentElement;
+        li.classList.add("removed");
+        setTimeout(() => {
+            li.remove();
+            saveTasks();
+        }, 600)
     }
-    saveTasks();
-})
+});
 
 function saveTasks(){
-    localStorage.setItem("data", taskList.innerHTML);
+    if (taskList.children.length === 0) {
+        localStorage.removeItem("data"); 
+    } else {
+        localStorage.setItem("data", taskList.innerHTML);
+    }
 }
 
 function loadTasks(){
-    taskList.innerHTML = localStorage.getItem("data");
+    let savedTask = localStorage.getItem("data");
+    taskList.innerHTML = savedTask ? savedTask : "";
 }
+
+inputBox.addEventListener("keypress", function(e){
+    if(e.key === "Enter"){
+        addTask();
+    }
+});
 
 loadTasks();
